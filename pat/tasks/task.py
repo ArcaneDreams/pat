@@ -4,10 +4,12 @@ from __future__ import annotations
 import abc
 from typing import Callable, Type
 
+import functools
+
 from pat.context.context import Context
 
 
-def task(*, name: str, depends_on=None) -> Callable:
+def task(func, *, name: str, depends_on=None) -> Callable:
     """
 
     :param name:
@@ -17,27 +19,57 @@ def task(*, name: str, depends_on=None) -> Callable:
     if name is None or not isinstance(name, str):
         raise ValueError("The name is invalid or null")
 
+    @functools.wraps(func)
     def wrapper_task_func():
-        pass
+        return func()
 
-    return wrapper_task_func()
+    return wrapper_task_func
 
 
-def depends_on(*, task_definition: Type[Task] | str):
+def depends_on(cls, *, task_class_type: Type[Task] | str) -> Callable:
     """
 
-    :param task_definition:
+    :param cls:
+    :rtype: object
+    :param task_class_type:
     :return:
     """
-    if task_definition is None:
+    if not cls:
+        raise ValueError("The class is invalid or null")
+    if task_class_type is None:
         raise ValueError("The task specified is invalid or null")
-    return
+
+    original_init = cls.__init__
+
+    def depends_on_func_wrapper(cls):
+        """
+
+        :param cls:
+        :return:
+        """
+
+        def new_init(self, *args, **kwargs):
+            """
+
+            :param self:
+            :param args:
+            :param kwargs:
+            :return:
+            """
+            original_init(self, *args, **kwargs)
+            if task_class_type not in cls.__bases__:
+                return
+
+        return new_init
+
+    return depends_on_func_wrapper
 
 
 class Task(abc.ABC):
     """
-
+    Defines the base task implementation
     """
+
     def __init__(self):
         pass
 

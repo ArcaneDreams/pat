@@ -4,7 +4,7 @@ from pat.tasks.build_task import BuildTask
 from pat.tasks.task import Task, depends_on
 
 
-@depends_on(task_definition=BuildTask)
+@depends_on(task_class_type=BuildTask)
 class PublishTask(Task):
     """
 

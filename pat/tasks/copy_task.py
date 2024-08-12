@@ -1,9 +1,10 @@
 #  Copyright Arcane Dreams Limited (c) 2024. All rights reserved.
 from pat.context.context import Context
+from pat.tasks.build_task import BuildTask
 from pat.tasks.task import Task, depends_on
 
 
-@depends_on()
+@depends_on(task_class_type=BuildTask)
 class CopyTask(Task):
     """
 
