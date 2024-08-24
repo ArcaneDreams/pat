@@ -30,7 +30,7 @@ class ContextLogger(abc.ABC):
         :param messages:
         :return:
         """
-        formatted_msg = self._format_message(ContextLoggerMessageType.INFO, *messages)
+        self._format_message(ContextLoggerMessageType.INFO, *messages)
 
     def warn(self, *messages):
         """
@@ -38,7 +38,7 @@ class ContextLogger(abc.ABC):
         :param messages:
         :return:
         """
-        formatted_msg = self._format_message(ContextLoggerMessageType.WARNING, *messages)
+        self._format_message(ContextLoggerMessageType.WARNING, *messages)
 
     def error(self, *messages):
         """
@@ -46,7 +46,7 @@ class ContextLogger(abc.ABC):
         :param messages:
         :return:
         """
-        formatted_msg = self._format_message(ContextLoggerMessageType.ERROR, *messages)
+        self._format_message(ContextLoggerMessageType.ERROR, *messages)
 
     def debug(self, *messages):
         """
@@ -54,4 +54,4 @@ class ContextLogger(abc.ABC):
         :param messages:
         :return:
         """
-        formatted_msg = self._format_message(ContextLoggerMessageType.DEBUG, *messages)
+        self._format_message(ContextLoggerMessageType.DEBUG, *messages)

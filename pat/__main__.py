@@ -5,6 +5,7 @@ from click import Context
 
 
 @click.group("cli", help="The entrypoint of the Python Automation Tool.")
+@click.option("--log-filepath", "log_filepath", type=str, multiple=True)
 @click.pass_context
 def cli(ctx: Context):
     """
@@ -33,8 +34,15 @@ def cli_run(ctx: Context, parameters, targets, **kwargs):
         raise ValueError("The runtime context is invalid or null")
     ctx.ensure_object(dict)
 
-    pass
+    if not parameters:
+        raise ValueError("The parameters are empty")
+
+    if not targets:
+        raise ValueError("The targets are empty")
 
 
 if __name__ == "__main__":
-    cli()
+    try:
+        cli()
+    except:
+        pass

@@ -10,6 +10,10 @@ class Configuration(pydantic.BaseModel):
     """
 
     def __init__(self, /, **data: Any):
+        """
+
+        :param data:
+        """
         super().__init__(**data)
 
     def save(self, /, **data: Any):

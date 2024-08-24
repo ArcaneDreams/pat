@@ -2,9 +2,10 @@
 import importlib
 import inspect
 import pkgutil
+from typing import Type
 
 
-def find_classes_with_base(package_name, base_class):
+def find_classes_with_base(package_name, base_class) -> list[Type]:
     """
     Finds and prints all classes in the specified package that inherit from the given base class.
 
@@ -20,18 +21,24 @@ def find_classes_with_base(package_name, base_class):
     # Import the package
     package = importlib.import_module(package_name)
 
+    if not package:
+        raise ValueError("The package name could not be imported")
+
+    classes_found: list[Type] = []
+
     # Iterate through the modules in the package
     for _, module_name, _ in pkgutil.iter_modules(package.__path__, package_name + '.'):
         try:
             # Import the module
             module = importlib.import_module(module_name)
-            print(f"Module: {module_name}")
+            print(f"Scanning Module: {module_name}")
 
             # Iterate over the members of the module
             for name, member in inspect.getmembers(module, inspect.isclass):
                 # Check if the class is a subclass of the specified base class and is defined in the module
                 if issubclass(member, base_class) and member is not base_class and member.__module__ == module_name:
-                    print(f"  Class: {name}")
+                    classes_found.append(member)
         except ImportError as e:
-            print(f"Failed to import {module_name}: {e}")
+            print(f"Failed: Unable to import \"{module_name}\": {e}")
 
+    return classes_found

@@ -1,6 +1,5 @@
 #  Copyright Arcane Dreams Limited (c) 2024. All rights reserved.
 import os
-import sys
 from importlib.metadata import entry_points
 
 
@@ -29,7 +28,7 @@ class PluginsManager(object):
 
     def load_plugins_from_paths(self, *paths):
         """
-
+        Load the plugins from the path specified.
         :param paths:
         :return:
         """
