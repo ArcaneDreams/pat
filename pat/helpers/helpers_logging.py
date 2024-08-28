@@ -7,7 +7,7 @@ from pat import __project__
 
 from pat.helpers.helpers_date import get_current_date
 
-_logger = None
+_logger: logging.Logger | None = None
 
 
 def get_default_log_path() -> str:
@@ -35,8 +35,9 @@ def get_logger() -> logging.Logger:
     :return:
     """
     global _logger
-    if _logger is None
-    return
+    if _logger is None:
+        _logger = create_logger()
+    return _logger
 
 
 def _create_log_file_handler(log_filepath: str | None = None, *,
