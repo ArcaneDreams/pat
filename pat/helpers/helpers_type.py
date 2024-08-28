@@ -5,7 +5,7 @@ import pkgutil
 from typing import Type
 
 
-def find_classes_with_base(package_name, base_class) -> list[Type]:
+def find_classes_with_base_in_package(package_name, base_class) -> list[Type]:
     """
     Finds and prints all classes in the specified package that inherit from the given base class.
 

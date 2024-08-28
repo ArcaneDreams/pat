@@ -34,15 +34,19 @@ def get_logger() -> logging.Logger:
     Get the logger instance
     :return:
     """
+    global _logger
+    if _logger is None
     return
 
 
-def _create_log_file_hanlder() -> logging.handlers.RotatingFileHandler:
+def _create_log_file_handler(log_filepath: str | None = None, *,
+                             max_bytes=None) -> logging.handlers.RotatingFileHandler:
     """
     Instantiate a new log file handler instance and return it
     :return:
     """
-    file_handler = logging.handlers.RotatingFileHandler(get_default_log_filepath())
+    file_handler = logging.handlers.RotatingFileHandler(
+        get_default_log_filepath() if log_filepath is None else log_filepath)
     return file_handler
 
 
@@ -66,6 +70,6 @@ def create_logger() -> logging.Logger:
     global _logger
     _logger = Logger(__project__)
     _logger.addHandler(logging.StreamHandler())
-    _logger.addHandler(logging.StreamHandler())
+    _logger.addHandler(_create_log_file_handler())
 
     return _logger

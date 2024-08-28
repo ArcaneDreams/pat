@@ -26,7 +26,7 @@ class DirectedAcyclicGraphParallel:
 
     def add_task_dependency(self, task: Task, dependent_task: Task):
         """
-
+        Add a new dependency on a task.
         :param task:
         :param dependent_task:
         :return:

@@ -1,7 +1,7 @@
 #  Copyright Arcane Dreams Limited (c) 2024. All rights reserved.
 import abc
 
-from pat.helpers.helpers_type import find_classes_with_base
+from pat.helpers.helpers_type import find_classes_with_base_in_package
 from pat.tasks.task import Task
 
 
@@ -25,7 +25,7 @@ class TaskRunner(abc.ABC):
 
         :return:
         """
-        types = find_classes_with_base(__package__, Task)
+        types = find_classes_with_base_in_package(__package__, Task)
         return
 
     def add_targets(self, *targets):

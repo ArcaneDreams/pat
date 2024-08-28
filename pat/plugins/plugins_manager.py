@@ -7,6 +7,7 @@ class PluginsManager(object):
     """
     Manager class for handling the instantiation and usage of plugins in the tool
     """
+
     def __init__(self):
         """
         The base constructor

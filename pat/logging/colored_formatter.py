@@ -23,7 +23,12 @@ class ColoredFormatter(logging.Formatter):
             logging.CRITICAL: self.bold_red + self.fmt + self.reset
         }
 
-    def format(self, record):
+    def format(self, record: logging.LogRecord):
+        """
+
+        :param record:
+        :return:
+        """
         log_fmt = self.FORMATS.get(record.levelno)
         formatter = logging.Formatter(log_fmt)
         return formatter.format(record)
